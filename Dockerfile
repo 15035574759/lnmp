@@ -135,5 +135,11 @@ RUN yum install -y fontconfig libXrender xorg-x11-fonts-75dpi xorg-x11-fonts-Typ
 RUN curl -sL https://rpm.nodesource.com/setup_11.x | bash - \
     && yum install -y nodejs
 
-# 初始化
-CMD ["/usr/sbin/init"]
+# 添加服务启动脚本
+ADD ./docker-compose/init.d /etc/init.d/
+
+COPY entrypoint.sh ./entrypoint.sh
+RUN chmod 777 ./entrypoint.sh
+
+# 容器启动时执行指令
+CMD ["./entrypoint.sh"]

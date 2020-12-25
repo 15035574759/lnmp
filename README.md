@@ -33,10 +33,7 @@ docker exec -it lnmp /bin/bash
 ps aux|grep nginx
 ps aux|grep mysql
 ps aux|grep php-fpm
-# 或者(Or)
-systemctl status nginx
-systemctl status mysqld
-systemctl status php-fpm
+ps aux|grep redis
 ```
 ### 设置初始密码(Default password)
 ```
@@ -83,11 +80,11 @@ systemctl status php-fpm
 
 ### PHP扩展(PHP extension)
 ```
-# 默认已安装部分扩展在目录：/usr/local/php/lib/php/extensions/no-debug-non-zts-20170718/
+# 默认已安装部分扩展在目录：/usr/local/php/lib/php/extensions/no-debug-non-zts-20151012
 # 如果要启用指定扩展，则需要修改php.ini，加上
 extension=xxx.so
 # xxx为PHP扩展的文件名，然后重启php
-systemctl restart php7
+service php-fpm restart
 ```
 ### 版本(Version)
 ```
