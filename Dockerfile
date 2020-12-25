@@ -12,7 +12,7 @@ MAINTAINER qinlh@outlook.com
 #安装nginx-1.14.2
 RUN groupadd www \
     && useradd -r -g www -s /bin/false www \
-    && yum install -y pcre-devel wget net-tools gcc zlib zlib-devel make openssl-devel \
+    && yum install -y pcre-devel wget net-tools gcc zlib zlib-devel make openssl-devel initscripts \
     && cd /home/soft \
     && tar -zxvf nginx-1.14.2.tar.gz \
     && cd nginx-1.14.2 \
@@ -66,6 +66,7 @@ RUN groupadd www-data \
     --enable-zip \
     && make \ 
     && make install \
+    && cp /home/soft/php-7.0.33/php.ini-production /usr/local/php/lib/php.ini \
     && cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf \
     && cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf \
     && ln -sf /usr/local/php/bin/php /usr/bin/php
