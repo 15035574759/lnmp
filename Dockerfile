@@ -136,15 +136,9 @@ COPY ./wkhtmltox/simsun.ttc /usr/share/fonts/
 RUN yum install -y fontconfig libXrender xorg-x11-fonts-75dpi xorg-x11-fonts-Type1 libXext libjpeg openssl\
     && rpm -ivh /home/soft/wkhtmltox-0.12.6-1.centos7.x86_64.rpm || true
 
-# 安装node.js-v10.15.1
-RUN cd /home/soft/ \
-    && wget http://cdn.npm.taobao.org/dist/node/v10.15.1/node-v10.15.1-linux-x64.tar.xz \
-    && tar zxvf node-v10.13.0.tar.xz \
-    && ln -sf /home/soft/node-v10.15.1-linux-x64/bin/npm /usr/bin/npm \
-    && ln -sf /home/soft/node-v10.15.1-linux-x64/bin/node /usr/bin/node \
-    && ln -sf /home/soft/node-v10.15.1-linux-x64/bin/npx /usr/bin/npx \
-    && npm install -g pm2 \
-    && ln -sf /home/soft/node-v10.15.1-linux-x64/bin/pm2 /usr/bin/pm2
+# 安装node.js-11
+RUN curl -sL https://rpm.nodesource.com/setup_11.x | bash - \
+    && yum install -y nodejs
 
 # 初始化
 CMD ["/usr/sbin/init"]
