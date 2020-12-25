@@ -13,7 +13,7 @@ service php-fpm start
 sleep 3
 echo `service php-fpm status`
 
-DATADIR='/data/mysql/data'
+DATADIR='/usr/local/mysql/data'
 chown -R mysql:mysql $DATADIR
 echo `service mysqld status`
 echo '3.启动mysqld....'

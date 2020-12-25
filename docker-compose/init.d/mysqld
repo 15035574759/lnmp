@@ -67,7 +67,7 @@ then
   bindir=/usr/local/mysql/bin
   if test -z "$datadir"
   then
-    datadir=/usr/local/mysql/data
+    datadir=/data/mysql/data
   fi
   sbindir=/usr/local/mysql/bin
   libexecdir=/usr/local/mysql/bin

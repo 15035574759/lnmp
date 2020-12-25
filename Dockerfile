@@ -20,6 +20,8 @@ RUN groupadd www \
     && make \
     && make install \
     && /usr/local/nginx/sbin/nginx
+ADD ./docker-compose/init.d/nginx /etc/init.d/nginx
+RUN chmod 755 /etc/init.d/nginx
 
 # 安装php-7.0.33
 RUN groupadd www-data \
@@ -64,7 +66,11 @@ RUN groupadd www-data \
     --enable-zip \
     && make \ 
     && make install \
+    && cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf \
+    && cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf \
     && ln -sf /usr/local/php/bin/php /usr/bin/php
+ADD ./docker-compose/init.d/php-fpm /etc/init.d/php-fpm
+RUN chmod 755 /etc/init.d/php-fpm
 
 # 安装redis扩展
 RUN cd /home/soft/ \
@@ -81,8 +87,11 @@ RUN cd /home/soft/ \
     && cd redis-5.0.3 \
     && make \
     && make install PREFIX=/usr/local/redis \
-    && cp /home/soft/redis-5.0.3/redis.conf /usr/local/redis/bin/ \
+    && mkdir /usr/local/redis/etc/ \
+    && cp /home/soft/redis-5.0.3/redis.conf /usr/local/redis/etc/redis.conf \
     && ln -sf /usr/local/redis/bin/redis-cli /usr/bin/redis
+ADD ./docker-compose/init.d/redis /etc/init.d/redis
+RUN chmod 755 /etc/init.d/redis
 
 # 安装手动编译Mysql-5.6
 RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
@@ -112,6 +121,8 @@ RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
     && chmod a+x /etc/init.d/mysqld \
     && /usr/local/mysql/scripts/mysql_install_db --user=mysql --defaults-file=/etc/my.cnf --basedir=/usr/local/mysql --datadir=/data/mysql/data \
     && ln -sf /usr/local/mysql/bin/mysql /usr/bin/mysql
+ADD ./docker-compose/init.d/mysqld /etc/init.d/mysqld
+RUN chmod 755 /etc/init.d/mysqld
 
 # yum安装Mysql-5.6
 # RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
@@ -134,9 +145,6 @@ RUN yum install -y fontconfig libXrender xorg-x11-fonts-75dpi xorg-x11-fonts-Typ
 # 安装node.js-11
 RUN curl -sL https://rpm.nodesource.com/setup_11.x | bash - \
     && yum install -y nodejs
-
-# 添加服务启动脚本
-ADD ./docker-compose/init.d /etc/init.d/
 
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod 777 ./entrypoint.sh

@@ -41,9 +41,11 @@ ps aux|grep redis
 ```
 ### 初始化(initialize)
 ```
-# 请及时修改Mysql的密码(默认并未重置密码和初始化)
+# 默认已初始化数据库
 初始化数据库
 /usr/local/mysql/scripts/mysql_install_db --user=mysql --defaults-file=/etc/my.cnf --basedir=/usr/local/mysql --datadir=/data/mysql/data \
+默认初始化数据库目录：/data/mysql/data
+可以自行修改位置，如果修改位置记得重新初始化数据库
 ```
 ### 警告(Warning)
 ```
