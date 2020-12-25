@@ -1,5 +1,5 @@
 # lnmp
-lnmp集成环境(centos7+nginx-1.14.2+php-7.0.33+redis-5.0.3+mysql-5.6+nodejs+wkhtmltox)
+lnmp集成环境(centos7+nginx-1.14.2+php-7.0.33+redis-5.0.3+mysql-5.6+nodejs-11+wkhtmltox-0.12.6)
 
 ## 使用教程(Quick start)
 ### 下载(Download)
@@ -36,7 +36,7 @@ ps aux|grep php-fpm
 # 或者(Or)
 systemctl status nginx
 systemctl status mysqld
-systemctl status php7
+systemctl status php-fpm
 ```
 ### 设置初始密码(Default password)
 ```
@@ -57,13 +57,30 @@ systemctl status php7
 #配置文件路径(Config file path)
 # Nginx
 /usr/local/nginx/conf/nginx.conf
+/usr/local/nginx/conf/conf.d/
 # MySQL
 /etc/my.cnf
 # PHP
 /usr/local/php/lib/php.ini
 /usr/local/php/etc/php-fpm.conf
 /usr/local/php/etc/php-fpm.d/www.conf
+# Redis
+/usr/local/redis/etc/redis.conf
 ```
+### 日志(log)
+```
+#日志文件路径(log file path)
+# Nginx
+/usr/local/nginx/logs/
+# PHP
+/usr/local/php/var/log/php-fpm.log
+/usr/local/php/var/log/php_errors.log
+# MYSQL
+/usr/local/mysql/error.log
+# Redis
+/var/log/redis/redis.log
+```
+
 ### PHP扩展(PHP extension)
 ```
 # 默认已安装部分扩展在目录：/usr/local/php/lib/php/extensions/no-debug-non-zts-20170718/

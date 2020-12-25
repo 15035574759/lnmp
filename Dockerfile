@@ -1,7 +1,10 @@
-# 创建基于centos7的php7.2镜像
+# 创建基于centos7搭建lnmp镜像
 
 # 基础镜像
 FROM centos:7
+
+# 添加安装包文件
+ADD ./soft /home/soft/
 
 #维护者
 MAINTAINER qinlh@outlook.com
@@ -10,9 +13,7 @@ MAINTAINER qinlh@outlook.com
 RUN groupadd www \
     && useradd -r -g www -s /bin/false www \
     && yum install -y pcre-devel wget net-tools gcc zlib zlib-devel make openssl-devel \
-    && mkdir /home/soft \
     && cd /home/soft \
-    && wget http://sw.mhscedu.com/nginx-1.14.2.tar.gz \
     && tar -zxvf nginx-1.14.2.tar.gz \
     && cd nginx-1.14.2 \
     && ./configure \ 
@@ -25,7 +26,6 @@ RUN groupadd www-data \
     && useradd -r -g www-data -s /bin/false www-data \
     && yum install -y php-devel gcc libXpm-devel libxml2 libxml2-devel openssl openssl-devel bzip2 bzip2-devel libcurl libcurl-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel gmp gmp-devel libmcrypt libmcrypt-devel readline readline-devel libxslt libxslt-devel psmisc \
     && cd /home/soft \
-    && wget http://sw.mhscedu.com/php-7.0.33.tar.gz \
     && tar zxvf php-7.0.33.tar.gz \
     && cd php-7.0.33 \
     && ./configure \ 
@@ -68,7 +68,6 @@ RUN groupadd www-data \
 
 # 安装redis扩展
 RUN cd /home/soft/ \
-    && wget http://pecl.php.net/get/redis-4.2.0.tgz \
     && tar -zxvf redis-4.2.0.tgz \
     && cd redis-4.2.0 \
     && phpize \
@@ -78,7 +77,6 @@ RUN cd /home/soft/ \
 
 # 安装redis-5.0.3服务
 RUN cd /home/soft/ \
-    && wget http://download.redis.io/releases/redis-5.0.3.tar.gz \
     && tar -zxvf redis-5.0.3.tar.gz \
     && cd redis-5.0.3 \
     && make \
@@ -92,7 +90,6 @@ RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
     && chown -R mysql:mysql /data/mysql \
     && yum -y install gcc gcc-c++ cmake ncurses-devel bison initscripts perl perl-devel autoconf \
     && cd /home/soft/ \
-    && wget http://mirrors.163.com/mysql/Downloads/MySQL-5.6/mysql-5.6.48.tar.gz \
     && tar -zxvf mysql-5.6.48.tar.gz \
     && cd mysql-5.6.48 \
     && cmake -DMYSQL_USER=mysql \
@@ -115,7 +112,6 @@ RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
     && chmod a+x /etc/init.d/mysqld \
     && /usr/local/mysql/scripts/mysql_install_db --user=mysql --defaults-file=/etc/my.cnf --basedir=/usr/local/mysql --datadir=/data/mysql/data \
     && ln -sf /usr/local/mysql/bin/mysql /usr/bin/mysql
-    # && /usr/local/mysql/bin/mysqladmin -u root password '123456'
 
 # yum安装Mysql-5.6
 # RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
@@ -129,11 +125,10 @@ RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
 #     && systemctl enable mysqld.service
 
 # 安装导出PDF工具wkhtmltopdf
-COPY ./wkhtmltox/wkhtmltox-0.12.6-1.centos7.x86_64.rpm /home/soft/
-COPY ./wkhtmltox/MSYHBD.TTC /usr/share/fonts/
-COPY ./wkhtmltox/MSYHL.TTC /usr/share/fonts/
-COPY ./wkhtmltox/simsun.ttc /usr/share/fonts/
 RUN yum install -y fontconfig libXrender xorg-x11-fonts-75dpi xorg-x11-fonts-Type1 libXext libjpeg openssl\
+    && cp /home/soft/wkhtmltox/MSYHBD.TTC /usr/share/fonts/ \
+    && cp /home/soft/wkhtmltox/MSYHL.TTC /usr/share/fonts/ \
+    && cp /home/soft/wkhtmltox/simsun.TTC /usr/share/fonts/ \
     && rpm -ivh /home/soft/wkhtmltox-0.12.6-1.centos7.x86_64.rpm || true
 
 # 安装node.js-11

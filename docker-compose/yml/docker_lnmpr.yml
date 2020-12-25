@@ -1,0 +1,35 @@
+version: '3'
+services:
+  lnmp:
+      build: ../../
+      image: centos:7
+      restart: always
+      container_name: "lnmp"
+      ports:
+        - "81:80"
+        - "6381:6379"
+        - "3307:3306"
+      privileged: true
+      volumes:
+        - /lnmp/www:/home/wwwroot/
+        - /lnmp/docker-compose/log/nginx/access.log:/usr/local/nginx/logs/access.log
+        - /lnmp/docker-compose/log/nginx/error.log:/usr/local/nginx/logs/error.log
+        - /lnmp/docker-compose/etc/nginx/nginx.conf:/usr/local/nginx/conf/nginx.conf:ro
+        - /lnmp/docker-compose/etc/nginx/conf.d/:/usr/local/nginx/conf/conf.d/:ro
+        - /lnmp/docker-compose/init.d/nginx:/etc/init.d/nginx
+        - /lnmp/docker-compose/etc/php/php.ini:/usr/local/php/lib/php.ini:ro
+        - /lnmp/docker-compose/etc/php/php-fpm.conf:/usr/local/php/etc/php-fpm.conf:ro
+        - /lnmp/docker-compose/etc/php/php-fpm.d/www.conf:/usr/local/php/etc/php-fpm.d/www.conf:ro
+        - /lnmp/docker-compose/log/php/php-fpm.log:/usr/local/php/var/log/php-fpm.log
+        - /lnmp/docker-compose/log/php/php_errors.log:/usr/local/php/var/log/php_errors.log
+        - /lnmp/docker-compose/init.d/php-fpm:/etc/init.d/php-fpm
+        - /lnmp/docker-compose/etc/redis/redis.conf:/usr/local/redis/etc/redis.conf:ro
+        - /lnmp/docker-compose/log/redis/redis.log:/var/log/redis/redis.log
+        - /lnmp/docker-compose/init.d/redis:/etc/init.d/redis
+        - /lnmp/docker-compose/mysql/data:/data/mysql/data
+        - /lnmp/docker-compose/etc/mysql/my.cnf:/etc/my.cnf:ro
+        - /lnmp/docker-compose/log/mysql/error.log:/usr/local/mysql/error.log
+        - /lnmp/docker-compose/init.d/mysqld:/etc/init.d/mysqld
+        - /etc/localtime:/etc/localtime:ro
+      command:
+        /usr/sbin/init
