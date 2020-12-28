@@ -31,5 +31,10 @@ services:
         - /lnmp/docker-compose/log/mysql/error.log:/usr/local/mysql/error.log
         - /lnmp/docker-compose/init.d/mysqld:/etc/init.d/mysqld
         - /etc/localtime:/etc/localtime:ro
-      command:
-        /usr/sbin/init
+      command: 
+        - /bin/bash
+        - -c
+        - |
+          ./entrypoint.sh
+      stdin_open: true
+      tty: true

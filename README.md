@@ -40,7 +40,7 @@ ps aux|grep redis
 nginx: /etc/init.d/nginx start {start|stop|restart|reload|status|configtest|force-quit|kill}
 php-fpm: /etc/init.d/php-fpm start {start|stop|restart|reload|status|configtest|force-quit|kill}
 redis: /etc/init.d/redis start {start|stop|restart|reload|status|configtest|force-quit|kill}
-mysql: /etc/init.d/mysql start {start|stop|restart|reload|status|configtest|force-quit|kill}
+mysql: /etc/init.d/mysqld start {start|stop|restart|reload|status|configtest|force-quit|kill}
 ```
 ### 设置初始密码(Default password)
 ```
