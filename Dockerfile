@@ -19,7 +19,9 @@ RUN groupadd www \
     && ./configure \ 
     && make \
     && make install \
-    && /usr/local/nginx/sbin/nginx
+    && /usr/local/nginx/sbin/nginx \
+    && ln -sf /usr/local/nginx/sbin/nginx /usr/bin/nginx \
+    && rm -rf /home/soft/nginx-1.14.2
 ADD ./docker-compose/init.d/nginx /etc/init.d/nginx
 RUN chmod 755 /etc/init.d/nginx
 
@@ -69,7 +71,8 @@ RUN groupadd www-data \
     && cp /home/soft/php-7.0.33/php.ini-production /usr/local/php/lib/php.ini \
     && cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf \
     && cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf \
-    && ln -sf /usr/local/php/bin/php /usr/bin/php
+    && ln -sf /usr/local/php/bin/php /usr/bin/php \
+    && rm -rf /home/soft/php-7.0.33
 ADD ./docker-compose/init.d/php-fpm /etc/init.d/php-fpm
 RUN chmod 755 /etc/init.d/php-fpm
 
@@ -80,7 +83,8 @@ RUN cd /home/soft/ \
     && phpize \
     && ./configure --with-php-config=/usr/local/php/bin/php-config \
     && make \
-    && make install
+    && make install \
+    && rm -rf /home/soft/redis-4.2.0
 
 # 安装redis-5.0.3服务
 RUN cd /home/soft/ \
@@ -90,7 +94,8 @@ RUN cd /home/soft/ \
     && make install PREFIX=/usr/local/redis \
     && mkdir /usr/local/redis/etc/ \
     && cp /home/soft/redis-5.0.3/redis.conf /usr/local/redis/etc/redis.conf \
-    && ln -sf /usr/local/redis/bin/redis-cli /usr/bin/redis
+    && ln -sf /usr/local/redis/bin/redis-cli /usr/bin/redis \
+    && rm -rf /home/soft/redis-5.0.3
 ADD ./docker-compose/init.d/redis /etc/init.d/redis
 RUN chmod 755 /etc/init.d/redis
 
@@ -121,7 +126,8 @@ RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
     && cp /home/soft/mysql-5.6.48/support-files/mysql.server /etc/init.d/mysqld \
     && chmod a+x /etc/init.d/mysqld \
     && /usr/local/mysql/scripts/mysql_install_db --user=mysql --defaults-file=/etc/my.cnf --basedir=/usr/local/mysql --datadir=/data/mysql/data \
-    && ln -sf /usr/local/mysql/bin/mysql /usr/bin/mysql
+    && ln -sf /usr/local/mysql/bin/mysql /usr/bin/mysql \
+    && rm -rf /home/soft/mysql-5.6.48
 ADD ./docker-compose/init.d/mysqld /etc/init.d/mysqld
 RUN chmod 755 /etc/init.d/mysqld
 
