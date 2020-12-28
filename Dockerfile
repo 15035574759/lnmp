@@ -74,6 +74,7 @@ RUN groupadd www-data \
     && cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf \
     && ln -sf /usr/local/php/bin/php /usr/bin/php \
     && rm -rf /home/soft/php-7.0.33
+ADD ./docker-compose/etc/php/php.ini /usr/local/php/lib/php.ini
 ADD ./docker-compose/init.d/php-fpm /etc/init.d/php-fpm
 RUN chmod 755 /etc/init.d/php-fpm \
     && /etc/init.d/php-fpm start
@@ -98,6 +99,7 @@ RUN cd /home/soft/ \
     && cp /home/soft/redis-5.0.3/redis.conf /usr/local/redis/etc/redis.conf \
     && ln -sf /usr/local/redis/bin/redis-cli /usr/bin/redis \
     && rm -rf /home/soft/redis-5.0.3
+ADD ./docker-compose/etc/redis/redis.conf /usr/local/redis/etc/redis.conf
 ADD ./docker-compose/init.d/redis /etc/init.d/redis
 RUN chmod 755 /etc/init.d/redis \
     && /etc/init.d/redis start
