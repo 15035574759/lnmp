@@ -35,6 +35,13 @@ ps aux|grep mysql
 ps aux|grep php-fpm
 ps aux|grep redis
 ```
+### 服务启动(Start)
+```
+nginx: /etc/init.d/nginx start {start|stop|restart|reload|status|configtest|force-quit|kill}
+php-fpm: /etc/init.d/php-fpm start {start|stop|restart|reload|status|configtest|force-quit|kill}
+redis: /etc/init.d/redis start {start|stop|restart|reload|status|configtest|force-quit|kill}
+mysql: /etc/init.d/mysql start {start|stop|restart|reload|status|configtest|force-quit|kill}
+```
 ### 设置初始密码(Default password)
 ```
 /usr/local/mysql/bin/mysqladmin -u root password '123456'
