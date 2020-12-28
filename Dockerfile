@@ -23,8 +23,7 @@ RUN groupadd www \
     && ln -sf /usr/local/nginx/sbin/nginx /usr/bin/nginx \
     && rm -rf /home/soft/nginx-1.14.2
 ADD ./docker-compose/init.d/nginx /etc/init.d/nginx
-RUN chmod 755 /etc/init.d/nginx \
-    && /etc/init.d/nginx start
+RUN chmod 755 /etc/init.d/nginx
 
 # 安装php-7.0.33
 RUN groupadd www-data \
@@ -76,8 +75,7 @@ RUN groupadd www-data \
     && rm -rf /home/soft/php-7.0.33
 ADD ./docker-compose/etc/php/php.ini /usr/local/php/lib/php.ini
 ADD ./docker-compose/init.d/php-fpm /etc/init.d/php-fpm
-RUN chmod 755 /etc/init.d/php-fpm \
-    && /etc/init.d/php-fpm start
+RUN chmod 755 /etc/init.d/php-fpm
 
 # 安装redis扩展
 RUN cd /home/soft/ \
@@ -101,8 +99,7 @@ RUN cd /home/soft/ \
     && rm -rf /home/soft/redis-5.0.3
 ADD ./docker-compose/etc/redis/redis.conf /usr/local/redis/etc/redis.conf
 ADD ./docker-compose/init.d/redis /etc/init.d/redis
-RUN chmod 755 /etc/init.d/redis \
-    && /etc/init.d/redis start
+RUN chmod 755 /etc/init.d/redis
 
 # 安装手动编译Mysql-5.6
 RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
@@ -134,8 +131,7 @@ RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
     && ln -sf /usr/local/mysql/bin/mysql /usr/bin/mysql \
     && rm -rf /home/soft/mysql-5.6.48
 ADD ./docker-compose/init.d/mysqld /etc/init.d/mysqld
-RUN chmod 755 /etc/init.d/mysqld \
-    && /etc/init.d/mysqld start
+RUN chmod 755 /etc/init.d/mysqld
 
 # yum安装Mysql-5.6
 # RUN groupadd mysql && useradd -r -g mysql -s /bin/false mysql \
