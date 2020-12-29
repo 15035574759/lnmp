@@ -94,6 +94,7 @@ RUN cd /home/soft/ \
     && make \
     && make install PREFIX=/usr/local/redis \
     && mkdir /usr/local/redis/etc/ \
+    && mkdir /usr/local/redis/data/ \
     && cp /home/soft/redis-5.0.3/redis.conf /usr/local/redis/etc/redis.conf \
     && ln -sf /usr/local/redis/bin/redis-cli /usr/bin/redis \
     && rm -rf /home/soft/redis-5.0.3
