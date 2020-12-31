@@ -26,3 +26,5 @@ echo '4.启动redis....'
 /etc/init.d/redis restart
 sleep 3
 echo `service redis status`
+
+tail -f /dev/null
