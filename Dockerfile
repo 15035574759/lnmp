@@ -156,6 +156,8 @@ RUN yum install -y fontconfig libXrender xorg-x11-fonts-75dpi xorg-x11-fonts-Typ
 RUN curl -sL https://rpm.nodesource.com/setup_11.x | bash - \
     && yum install -y nodejs
 
+COPY ./index.html /usr/local/nginx/html/index.html
+
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod 777 ./entrypoint.sh
 
