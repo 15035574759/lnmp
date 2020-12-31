@@ -160,4 +160,4 @@ COPY entrypoint.sh ./entrypoint.sh
 RUN chmod 777 ./entrypoint.sh
 
 # 容器启动时执行指令
-CMD ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
