@@ -150,7 +150,7 @@ RUN yum install -y fontconfig libXrender xorg-x11-fonts-75dpi xorg-x11-fonts-Typ
     && cp /home/soft/wkhtmltox/MSYHBD.TTC /usr/share/fonts/ \
     && cp /home/soft/wkhtmltox/MSYHL.TTC /usr/share/fonts/ \
     && cp /home/soft/wkhtmltox/simsun.TTC /usr/share/fonts/ \
-    && rpm -ivh /home/soft/wkhtmltox-0.12.6-1.centos7.x86_64.rpm || true
+    && rpm -ivh /home/soft/wkhtmltox/wkhtmltox-0.12.6-1.centos7.x86_64.rpm || true
 
 # 安装node.js-11
 RUN curl -sL https://rpm.nodesource.com/setup_11.x | bash - \
