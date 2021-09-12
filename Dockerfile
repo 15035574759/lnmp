@@ -52,6 +52,7 @@ RUN groupadd www-data \
     --with-xmlrpc \
     --with-xsl \
     --with-zlib \
+    --with-gmp \
     --enable-fpm \
     --enable-bcmath \
     --enable-libxml \
