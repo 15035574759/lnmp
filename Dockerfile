@@ -25,13 +25,13 @@ RUN groupadd www \
 ADD ./docker-compose/init.d/nginx /etc/init.d/nginx
 RUN chmod 755 /etc/init.d/nginx
 
-# 安装php-7.0.33
+# 安装php-7.1.8
 RUN groupadd www-data \
     && useradd -r -g www-data -s /bin/false www-data \
     && yum install -y php-devel gcc libXpm-devel libxml2 libxml2-devel openssl openssl-devel bzip2 bzip2-devel libcurl libcurl-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel gmp gmp-devel libmcrypt libmcrypt-devel readline readline-devel libxslt libxslt-devel psmisc \
     && cd /home/soft \
-    && tar zxvf php-7.0.33.tar.gz \
-    && cd php-7.0.33 \
+    && tar zxvf php-7.1.8.tar.gz \
+    && cd php-7.1.8 \
     && ./configure \ 
     --prefix=/usr/local/php \
     --with-curl \
@@ -69,11 +69,11 @@ RUN groupadd www-data \
     --enable-zip \
     && make \ 
     && make install \
-    && cp /home/soft/php-7.0.33/php.ini-production /usr/local/php/lib/php.ini \
+    && cp /home/soft/php-7.1.8/php.ini-production /usr/local/php/lib/php.ini \
     && cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf \
     && cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf \
     && ln -sf /usr/local/php/bin/php /usr/bin/php \
-    && rm -rf /home/soft/php-7.0.33
+    && rm -rf /home/soft/php-7.1.8
 ADD ./docker-compose/etc/php/php.ini /usr/local/php/lib/php.ini
 ADD ./docker-compose/init.d/php-fpm /etc/init.d/php-fpm
 RUN chmod 755 /etc/init.d/php-fpm
